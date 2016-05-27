@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Core Animation 阅读随笔 第四章 - 视觉效果 | 丶信步沧桑</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="16/04/23  第四章视觉效果
+
+borderWidth
+
+
+borderWidth是绘制在frame之内的内边框.
+borderWidth的绘制只是沿着图层的边框绘制, 如果layer上的图片(寄宿图)超出layer并显示, borderWidth依然只沿着layer的边界绘制, 而不会包括超出边界的寄宿图, 即:borderWidth是跟随图层边界变化,而非图层里面的内容;
+
+阴影
+
+
+阴">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Core Animation 阅读随笔 第四章 - 视觉效果">
+<meta property="og:url" content="http://xbcs.github.io/2016/04/23/CA第四章/index.html">
+<meta property="og:site_name" content="丶信步沧桑">
+<meta property="og:description" content="16/04/23  第四章视觉效果
+
+borderWidth
+
+
+borderWidth是绘制在frame之内的内边框.
+borderWidth的绘制只是沿着图层的边框绘制, 如果layer上的图片(寄宿图)超出layer并显示, borderWidth依然只沿着layer的边界绘制, 而不会包括超出边界的寄宿图, 即:borderWidth是跟随图层边界变化,而非图层里面的内容;
+
+阴影
+
+
+阴">
+<meta property="og:updated_time" content="2016-05-24T02:13:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Core Animation 阅读随笔 第四章 - 视觉效果">
+<meta name="twitter:description" content="16/04/23  第四章视觉效果
+
+borderWidth
+
+
+borderWidth是绘制在frame之内的内边框.
+borderWidth的绘制只是沿着图层的边框绘制, 如果layer上的图片(寄宿图)超出layer并显示, borderWidth依然只沿着layer的边界绘制, 而不会包括超出边界的寄宿图, 即:borderWidth是跟随图层边界变化,而非图层里面的内容;
+
+阴影
+
+
+阴">
+  
+    <link rel="alternative" href="/atom.xml" title="丶信步沧桑" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Zoe Lee</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">The more you learn, the more you feel you are ignorant.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>Über</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Core-Animation/" style="font-size: 20px;">Core Animation</a> <a href="/tags/FMDB-iOS/" style="font-size: 10px;">FMDB iOS</a> <a href="/tags/OC-知识点-随记/" style="font-size: 10px;">OC 知识点 随记</a> <a href="/tags/React-Native-热更新-iOS/" style="font-size: 15px;">React-Native 热更新 iOS</a> <a href="/tags/objc-OC-Runtime/" style="font-size: 10px;">objc OC Runtime</a> <a href="/tags/吐槽-杂-Bug-ScrollView-Masonry-AutoLayout/" style="font-size: 10px;">吐槽 杂 Bug ScrollView Masonry AutoLayout</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">奥巴马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">卡卡的美丽传说</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">本泽马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">吉格斯的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">习大大大不同</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">托蒂的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Zoe Lee</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="null" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Zoe Lee</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">The more you learn, the more you feel you are ignorant.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-CA第四章" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/23/CA第四章/" class="article-date">
+  	<time datetime="2016-04-23T13:15:19.000Z" itemprop="datePublished">2016-04-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Core Animation 阅读随笔 第四章 - 视觉效果
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Core-Animation/">Core Animation</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2>16/04/23  第四章视觉效果</h2>
+
+<h4>borderWidth</h4>
+
+<ol>
+<li>borderWidth是绘制在frame之内的内边框.</li>
+<li>borderWidth的绘制只是沿着图层的边框绘制, 如果layer上的图片(寄宿图)超出layer并显示, borderWidth依然只沿着layer的边界绘制, 而不会包括超出边界的寄宿图, 即:borderWidth是跟随图层边界变化,而非图层里面的内容;</li>
+</ol>
+<h4>阴影</h4>
+
+<ol>
+<li>阴影和上述边框不同, 阴影是跟随图层内容的, 而非图层边框.</li>
+<li>当即需要阴影又需要裁剪时, 裁剪会把阴影也裁剪掉, 可在图层外再包一个视图,设置外包视图的阴影, 裁剪内容视图;</li>
+<li>默认的阴影效果是跟随图层内容的, 非常消耗资源, 可以通过<code>shadowPath</code>来提高性能.</li>
+<li><code>shadowPath</code>是<code>CGPathRef</code>类型,是指向<code>CGPath</code>的指针, <code>CGPath</code>是 <code>Core Graphics</code>对象,用来指定任意一个<code>矢量图形</code>,</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">    @interface ViewController ()</span><br><span class="line"></span><br><span class="line">    @property (nonatomic, weak) IBOutlet UIView *layerView1;</span><br><span class="line">    @property (nonatomic, weak) IBOutlet UIView *layerView2;</span><br><span class="line">    @end</span><br><span class="line"></span><br><span class="line">    @implementation ViewController</span><br><span class="line"></span><br><span class="line">    - (void)viewDidLoad</span><br><span class="line">    &#123;</span><br><span class="line">     [super viewDidLoad];</span><br><span class="line"></span><br><span class="line">     //阴影模糊度</span><br><span class="line">     self.layerView1.layer.shadowOpacity = 0.5f;</span><br><span class="line">     self.layerView2.layer.shadowOpacity = 0.5f;</span><br><span class="line"></span><br><span class="line">     ///创建长方形阴影</span><br><span class="line">     // 1. 创建绘制路径</span><br><span class="line">     CGMutablePathRef squarePath = CGPathCreateMutable();</span><br><span class="line">     // 2. 指定绘制长方形的范围</span><br><span class="line">     CGPathAddRect(squarePath, NULL, self.layerView1.bounds);</span><br><span class="line">     // 3. 设置路径</span><br><span class="line">     self.layerView1.layer.shadowPath = squarePath; </span><br><span class="line">     // 4. releaase</span><br><span class="line">     CGPathRelease(squarePath);</span><br><span class="line"></span><br><span class="line">     ￼///创建椭圆阴影</span><br><span class="line">     // 1. 创建绘制路径</span><br><span class="line">     CGMutablePathRef circlePath = CGPathCreateMutable();</span><br><span class="line">     // 2. 指定绘制椭圆的范围</span><br><span class="line">     CGPathAddEllipseInRect(circlePath, NULL, self.layerView2.bounds);</span><br><span class="line">     // 3. 设置路径</span><br><span class="line">     self.layerView2.layer.shadowPath = circlePath;  </span><br><span class="line">     // 4. releaase</span><br><span class="line">     CGPathRelease(circlePath);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+</code></pre><h4>mask蒙版遮罩属性</h4>
+
+<ol>
+<li><code>mask</code>属性本身是一个<code>CALayer</code>,定义了父图层的部分可见区域;</li>
+<li><code>mask</code>属性的color是无关紧要的, 本是就像一个模具(比如:小熊饼干模具,月饼等形状模具),如果<code>mask</code>比父视图小, 那么只会显示mask这个模具形状的内容. 比如你父视图是红色的矩形, 而mask是一个任意颜色的五角星, 那么最终显示结果是一个红色的五角星, 超出<code>mask</code>范围外的都会隐藏. 就像模具.</li>
+<li><code>mask蒙版图层</code>不仅仅限于静态图,任何图层构成的都可以作为mask属性.意味着你可以通过代码或动画来实时生成;</li>
+</ol>
+<h4>拉伸过滤</h4>
+
+<p>最后我们再来谈谈minificationFilter和magnificationFilter属性。总得来讲，当我们视图显示一个图片的时候，都应该正确地显示这个图片（意即：以正确的比例和正确的1：1像素显示在屏幕上）。原因如下：</p>
+<p>能够显示最好的画质，像素既没有被压缩也没有被拉伸。<br>能更好的使用内存，因为这就是所有你要存储的东西。<br>最好的性能表现，CPU不需要为此额外的计算。<br>不过有时候，显示一个非真实大小的图片确实是我们需要的效果。比如说一个头像或是图片的缩略图，再比如说一个可以被拖拽和伸缩的大图。这些情况下，为同一图片的不同大小存储不同的图片显得又不切实际。</p>
+<p>当图片需要显示不同的大小的时候，有一种叫做拉伸过滤的算法就起到作用了。它作用于原图的像素上并根据需要生成新的像素显示在屏幕上。</p>
+<p>事实上，重绘图片大小也没有一个统一的通用算法。这取决于需要拉伸的内容，放大或是缩小的需求等这些因素。CALayer为此提供了三种拉伸过滤方法，他们是：</p>
+<p>kCAFilterLinear<br>kCAFilterNearest<br>kCAFilterTrilinear<br>minification（缩小图片）和magnification（放大图片）默认的过滤器都是kCAFilterLinear，这个过滤器采用双线性滤波算法，它在大多数情况下都表现良好。双线性滤波算法通过对多个像素取样最终生成新的值，得到一个平滑的表现不错的拉伸。但是当放大倍数比较大的时候图片就模糊不清了。</p>
+<p>kCAFilterTrilinear和kCAFilterLinear非常相似，大部分情况下二者都看不出来有什么差别。但是，较双线性滤波算法而言，三线性滤波算法存储了多个大小情况下的图片（也叫多重贴图），并三维取样，同时结合大图和小图的存储进而�得到最后的结果。</p>
+<p>这个方法的好处在于算法能够从一系列已经接近于最终大小的图片中得到想要的结果，也就是说不要对很多像素同步取样。这不仅提高了性能，也避免了小概率因舍入错误引起的取样失灵的问题.</p>
+<p>对于大图来说，双线性滤波和三线性滤波表现得更出色</p>
+<p>kCAFilterNearest是一种比较武断的方法。从名字不难看出，这个算法（也叫最近过滤）就是取样最近的单像素点而不管其他的颜色。这样做非常快，也不会使图片模糊。但是，最明显的效果就是，会使得压缩图片更糟，图片放大之后也显得块状或是马赛克严重。</p>
+<p>对于没有斜线的小图来说，最近过滤算法要好很多</p>
+<p>总的来说，对于比较小的图或者是差异特别明显，极少斜线的大图，最近过滤算法会保留这种差异明显的特质以呈现更好的结果。但是对于大多数的图尤其是有很多斜线或是曲线轮廓的图片来说，最近过滤算法会导致更差的结果。换句话说，线性过滤保留了形状，最近过滤则保留了像素的差异。</p>
+<h4>组透明</h4>
+
+<ol>
+<li><code>UIView</code>中<code>alpha</code>属性可设置透明度, <code>CALayer</code>与之对应的是<code>opacity</code>, 两个属性都会对子视图造成影响.</li>
+<li>在自定义视图中, 对父视图进行透明度设置, 子视图的透明度会跟随父视图, 虽然如此,但最终显示结果却不尽人意, 这是因为<code>最终显示结果由两个视图叠加而成</code>, 也就是说,如果父视图透明度为50%, 子视图也为50%, 系统绘制图层时,会根据两者的透明度混合叠加. 最终重叠部分的透明度看起来像75%. 可以通过<code>CALayer</code>的<code>shouldRasterize</code>属性来实现组透明效果.</li>
+<li><code>shouldRasterize</code>属性设置为<code>YES</code>会在透明度被应用之前将所有视图合成一张整体图片. 但当设置<code>shouldRasterize</code>属性为YES时,为了防止<code>Retina</code>屏幕像素化, 就需要设置<code>rasterizationScale</code>属性去匹配屏幕. 而一旦这两个属性同时设置时会出现性能问题.会在12章和15章讲解.</li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/25/CA第五章/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Core Animation 阅读随笔 第五章 - 变换
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/22/学会React-Native布局二/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">React-Native布局实战(二)</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="CA第四章" data-title="Core Animation 阅读随笔 第四章 - 视觉效果" data-url="http://xbcs.github.io/2016/04/23/CA第四章/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Zoe Lee
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Core Animation 阅读随笔 第六章 - 专用图层 | 丶信步沧桑</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="16/04/28  第六章 专用图层
+
+CAShapeLayer
+
+
+CAShapeLayer是一个通过矢量图形绘制的图层子类,而非bitmap.
+通过CAShapeLayer来绘制相比于Core Graphics而言优点在于:
+渲染快速, CAShapeLayer使用了硬件加速,绘制同一图形比Core Graphics快.
+
+
+搞笑使用内存,一个CAShapeLayer不需要像普通CALayer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Core Animation 阅读随笔 第六章 - 专用图层">
+<meta property="og:url" content="http://xbcs.github.io/2016/04/28/CA第六章/index.html">
+<meta property="og:site_name" content="丶信步沧桑">
+<meta property="og:description" content="16/04/28  第六章 专用图层
+
+CAShapeLayer
+
+
+CAShapeLayer是一个通过矢量图形绘制的图层子类,而非bitmap.
+通过CAShapeLayer来绘制相比于Core Graphics而言优点在于:
+渲染快速, CAShapeLayer使用了硬件加速,绘制同一图形比Core Graphics快.
+
+
+搞笑使用内存,一个CAShapeLayer不需要像普通CALayer">
+<meta property="og:updated_time" content="2016-05-24T02:51:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Core Animation 阅读随笔 第六章 - 专用图层">
+<meta name="twitter:description" content="16/04/28  第六章 专用图层
+
+CAShapeLayer
+
+
+CAShapeLayer是一个通过矢量图形绘制的图层子类,而非bitmap.
+通过CAShapeLayer来绘制相比于Core Graphics而言优点在于:
+渲染快速, CAShapeLayer使用了硬件加速,绘制同一图形比Core Graphics快.
+
+
+搞笑使用内存,一个CAShapeLayer不需要像普通CALayer">
+  
+    <link rel="alternative" href="/atom.xml" title="丶信步沧桑" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Zoe Lee</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">The more you learn, the more you feel you are ignorant.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>Über</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Core-Animation/" style="font-size: 20px;">Core Animation</a> <a href="/tags/FMDB-iOS/" style="font-size: 10px;">FMDB iOS</a> <a href="/tags/OC-知识点-随记/" style="font-size: 10px;">OC 知识点 随记</a> <a href="/tags/React-Native-热更新-iOS/" style="font-size: 15px;">React-Native 热更新 iOS</a> <a href="/tags/objc-OC-Runtime/" style="font-size: 10px;">objc OC Runtime</a> <a href="/tags/吐槽-杂-Bug-ScrollView-Masonry-AutoLayout/" style="font-size: 10px;">吐槽 杂 Bug ScrollView Masonry AutoLayout</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">奥巴马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">卡卡的美丽传说</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">本泽马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">吉格斯的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">习大大大不同</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">托蒂的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Zoe Lee</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="null" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Zoe Lee</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">The more you learn, the more you feel you are ignorant.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-CA第六章" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/28/CA第六章/" class="article-date">
+  	<time datetime="2016-04-27T16:19:23.000Z" itemprop="datePublished">2016-04-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Core Animation 阅读随笔 第六章 - 专用图层
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Core-Animation/">Core Animation</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2>16/04/28  第六章 专用图层</h2>
+
+<h4>CAShapeLayer</h4>
+
+<ol>
+<li><code>CAShapeLayer</code>是一个通过矢量图形绘制的图层子类,而非bitmap.</li>
+<li>通过<code>CAShapeLayer</code>来绘制相比于<code>Core Graphics</code>而言优点在于:<ul>
+<li>渲染快速, <code>CAShapeLayer</code>使用了硬件加速,绘制同一图形比<code>Core Graphics</code>快.</li>
+</ul>
+<ul>
+<li>搞笑使用内存,一个<code>CAShapeLayer</code>不需要像普通<code>CALayer</code>一样创建一个寄宿图形，所以无论有多大，都不会占用太多的内存. 矢量.</li>
+</ul>
+<ul>
+<li>不会被图层边界裁剪,一个<code>CAShapeLayer</code>可以在边界之外绘制。你的图层路径不会像在使用<code>Core Graphics</code>的普通<code>CALayer</code>一样被剪裁掉.</li>
+</ul>
+<ul>
+<li>不会出现像素化(矢量).当你给<code>CAShapeLayer</code>做3D变换时，它不像一个有寄宿图的普通图层一样变得像素化。</li>
+</ul>
+</li>
+</ol>
+<p>-</p>
+<h4>创建一个CGPath</h4>
+
+<ol>
+<li>部分属性:<ul>
+<li>lineWith: 线宽，用点表示单位 </li>
+<li>lineCap:  线条结尾的样子 </li>
+<li>lineJoin: 线条之间的结合点的样子</li>
+</ul>
+</li>
+<li>可在同一图层绘制多个形状, 但只有一次机会设置属性,若需颜色不同,则要为每个形状准备一个图层.</li>
+<li></li>
+</ol>
+<p>-</p>
+<h4>圆角</h4>
+
+<ol>
+<li><p>通过<code>UIBezierPath</code>绘制自定义圆角个数的矩形:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//设置规则</span><br><span class="line">CGRect rect = CGRectMake(50, 50, 100, 100);</span><br><span class="line">CGSize radii = CGSizeMake(20, 20);</span><br><span class="line"></span><br><span class="line">UIRectCorner corners = UIRectCornerTopRight | UIRectCornerBottomRight | UIRectCornerBottomLeft;</span><br><span class="line">//创建被三儿路径</span><br><span class="line">UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:corners cornerRadii:radii];</span><br><span class="line"></span><br><span class="line">// 设置ShapeLayer</span><br><span class="line">CAShapeLayer *shapeLayer = [CAShapeLayer alloc]init];</span><br><span class="line">shapeLayer.lineWidth = 3;</span><br><span class="line">shapeLayer.lineCap = kCALineCapRound;</span><br><span class="line">shapeLayer.lineJoin = kCALineJoinRound;</span><br><span class="line">shapeLayer.path = path.CGPath;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>-</p>
+<h4>CATextLayer</h4>
+
+<ol>
+<li><code>Core Animation</code>提供了一个<code>CALayer</code>的子类<code>CATextLayer</code>,以图层的形式包含了<code>UILabel</code>几乎所有的绘制特性, 并额外提供了一些新的特性.</li>
+<li>性能上,<code>CATextLayer</code>比<code>UILabel</code>快很多.<code>CATextLayer</code>使用了<code>Core Text</code>.</li>
+<li>iOS6之前,<code>UILabel</code>通过<code>WebKit</code>来实现绘制?</li>
+<li><p>用CATextLayer来实现一个UILabel:</p>
+ <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">    @interface ViewController ()</span><br><span class="line"></span><br><span class="line">    @property (nonatomic, weak) IBOutlet UIView *labelView;</span><br><span class="line"></span><br><span class="line">    @end</span><br><span class="line"></span><br><span class="line">    @implementation ViewController</span><br><span class="line">    - (void)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">  [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">  <span class="regexp">//</span>创建TextLayer添加</span><br><span class="line">  CATextLayer *textLayer = [CATextLayer layer];</span><br><span class="line">  textLayer.frame = <span class="keyword">self</span>.labelView.bounds;</span><br><span class="line">  [<span class="keyword">self</span>.labelView.layer <span class="symbol">addSublayer:</span>textLayer];</span><br><span class="line"></span><br><span class="line">  <span class="regexp">//</span>设置字体颜色</span><br><span class="line">  textLayer.foregroundColor = [UIColor blackColor].CGColor;</span><br><span class="line">  <span class="regexp">//</span>设置对齐方式</span><br><span class="line">  textLayer.alignmentMode = kCAAlignmentJustified;</span><br><span class="line">  textLayer.wrapped = YES;</span><br><span class="line"></span><br><span class="line">  UIFont *font = [UIFont <span class="symbol">systemFontOfSize:</span><span class="number">15</span>];</span><br><span class="line"></span><br><span class="line">  <span class="regexp">//</span>设置字体</span><br><span class="line">  CFStringRef fontName = (__bridge CFStringRef)font.fontName;</span><br><span class="line">  CGFontRef fontRef = CGFontCreateWithFontName(fontName);</span><br><span class="line">  textLayer.font = fontRef;</span><br><span class="line">  <span class="regexp">//</span>设置字体大小</span><br><span class="line">  textLayer.fontSize = font.pointSize;</span><br><span class="line">  CGFontRelease(fontRef);</span><br><span class="line"></span><br><span class="line">  <span class="regexp">//</span>设置文本内容</span><br><span class="line">  NSString *text = @<span class="string">"Lorem ipsum dolor sit amet, consectetur adipiscing \ elit. Quisque massa arcu, eleifend vel varius in, facilisis pulvinar \ leo. Nunc quis nunc at mauris pharetra condimentum ut ac neque. Nunc elementum, libero ut porttitor dictum, diam odio congue lacus, vel \ fringilla sapien diam at purus. Etiam suscipit pretium nunc sit amet \ lobortis"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="regexp">//</span>赋值</span><br><span class="line">  textLayer.string = text;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p> 当这样设置后,显示会出现像素化,需要以当前屏幕的Scale来显示:<br> <code>textLayer.contentsScale = [UIScreen mainScreen].scale;</code></p>
+</li>
+<li><code>CATextLayer</code>的<code>font</code>属性为<code>CFTypeRef</code>类型, 可根据具体需求设置为<code>CGFontRef</code>或<code>CTFontRef</code>.</li>
+<li>字体大小由单独的<code>fontSize</code>决定, 因上述<code>CTFontRef</code>和<code>CGFontRef</code>并不像<code>UIFont</code>一样包含点大小.</li>
+<li><code>CATextLayer</code>的<code>string</code>属性为<code>id</code>类型,这样既可用<code>NSString</code>也可用富文本<code>NSAttributedString</code>了.</li>
+</ol>
+<h4>富文本</h4>
+
+<ol>
+<li><p><strong>字符属性</strong></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">字符属性可以应用于 attributed string 的文本中。</span><br><span class="line"></span><br><span class="line">NSString *const NSFontAttributeName;(字体)</span><br><span class="line"></span><br><span class="line">NSString *const NSParagraphStyleAttributeName;(段落)</span><br><span class="line"></span><br><span class="line">NSString *const NSForegroundColorAttributeName;(字体颜色)</span><br><span class="line"></span><br><span class="line">NSString *const NSBackgroundColorAttributeName;(字体背景色)</span><br><span class="line"></span><br><span class="line">NSString *const NSLigatureAttributeName;(连字符)</span><br><span class="line"></span><br><span class="line">NSString *const NSKernAttributeName;(字间距)</span><br><span class="line"></span><br><span class="line">NSString *const NSStrikethroughStyleAttributeName;(删除线)</span><br><span class="line"></span><br><span class="line">NSString *const NSUnderlineStyleAttributeName;(下划线)</span><br><span class="line"></span><br><span class="line">NSString *const NSStrokeColorAttributeName;(边线颜色)</span><br><span class="line"></span><br><span class="line">NSString *const NSStrokeWidthAttributeName;(边线宽度)</span><br><span class="line"></span><br><span class="line">NSString *const NSShadowAttributeName;(阴影)(横竖排版)</span><br><span class="line"></span><br><span class="line">NSString *const NSVerticalGlyphFormAttributeName;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p><strong>常量</strong></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>&gt; NSFontAttributeName(字体)</span><br><span class="line"></span><br><span class="line">该属性所对应的值是一个 UIFont 对象。该属性用于改变一段文本的字体。如果不指定该属性，则默认为<span class="number">12</span>-point Helvetica(Neue)。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>&gt; NSParagraphStyleAttributeName(段落)</span><br><span class="line"></span><br><span class="line">该属性所对应的值是一个 NSParagraphStyle 对象。该属性在一段文本上应用多个属性。如果不指定该属性，则默认为 NSParagraphStyle 的defaultParagraphStyle 方法返回的默认段落属性。</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>&gt; NSForegroundColorAttributeName(字体颜色)</span><br><span class="line"></span><br><span class="line">该属性所对应的值是一个 UIColor 对象。该属性用于指定一段文本的字体颜色。如果不指定该属性，则默认为黑色。</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>&gt; NSBackgroundColorAttributeName(字体背景色)</span><br><span class="line"></span><br><span class="line">该属性所对应的值是一个 UIColor 对象。该属性用于指定一段文本的背景颜色。如果不指定该属性，则默认无背景色。</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>&gt; NSLigatureAttributeName(连字符)</span><br><span class="line"></span><br><span class="line">该属性所对应的值是一个 NSNumber 对象(整数)。连体字符是指某些连在一起的字符，它们采用单个的图元符号。<span class="number">0</span> 表示没有连体字符。<span class="number">1</span> 表示使用默认的连体字符。<span class="number">2</span>表示使用所有连体符号。默认值为 <span class="number">1</span>（注意，iOS 不支持值为 <span class="number">2</span>）。</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>&gt; NSKernAttributeName(字间距)</span><br><span class="line"></span><br><span class="line">该属性所对应的值是一个 NSNumber 对象(整数)。字母紧排指定了用于调整字距的像素点数。字母紧排的效果依赖于字体。值为 <span class="number">0</span> 表示不使用字母紧排。默认值为<span class="number">0</span>。</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>&gt; NSStrikethroughStyleAttributeName(删除线)</span><br><span class="line"></span><br><span class="line">该属性所对应的值是一个 NSNumber 对象(整数)。该值指定是否在文字上加上删除线，该值参考“Underline Style Attributes”。默认值是NSUnderlineStyleNone。</span><br><span class="line"></span><br><span class="line"><span class="number">8</span>&gt; NSUnderlineStyleAttributeName(下划线)</span><br><span class="line"></span><br><span class="line">该属性所对应的值是一个 NSNumber 对象(整数)。该值指定是否在文字上加上下划线，该值参考“Underline Style Attributes”。默认值是NSUnderlineStyleNone。</span><br><span class="line"></span><br><span class="line"><span class="number">9</span>&gt; NSStrokeColorAttributeName(边线颜色)</span><br><span class="line"></span><br><span class="line">该属性所对应的值是一个 UIColor 对象。如果该属性不指定（默认），则等同于 NSForegroundColorAttributeName。否则，指定为删除线或下划线颜色。更多细节见“Drawing attributedstrings that are both filled <span class="keyword">and</span> stroked”。</span><br><span class="line"></span><br><span class="line"><span class="number">10</span>&gt; NSStrokeWidthAttributeName(边线宽度)</span><br><span class="line"></span><br><span class="line">该属性所对应的值是一个 NSNumber 对象(小数)。该值改变描边宽度（相对于字体size 的百分比）。默认为 <span class="number">0</span>，即不改变。正数只改变描边宽度。负数同时改变文字的描边和填充宽度。例如，对于常见的空心字，这个值通常为<span class="number">3.0</span>。</span><br><span class="line"></span><br><span class="line"><span class="number">11</span>&gt; NSShadowAttributeName(阴影)</span><br><span class="line"></span><br><span class="line">该属性所对应的值是一个 NSShadow 对象。默认为 <span class="literal">nil</span>。</span><br><span class="line"></span><br><span class="line"><span class="number">12</span>&gt; NSVerticalGlyphFormAttributeName(横竖排版)</span><br><span class="line"></span><br><span class="line">该属性所对应的值是一个 NSNumber 对象(整数)。<span class="number">0</span> 表示横排文本。<span class="number">1</span> 表示竖排文本。在 iOS 中，总是使用横排文本，<span class="number">0</span> 以外的值都未定义。</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4>UILabel的替代品</h4>
+
+
+<ol>
+<li><p>可以通过重写View的类方法 <code>+ (Class)layerClass</code>来将UILabel替换成CATextLayer;</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#import "LayerLabel.h"</span><br><span class="line">#import &lt;QuartzCore/QuartzCore.h&gt;</span><br><span class="line"></span><br><span class="line">@implementation LayerLabel</span><br><span class="line">+ (Class)layerClass</span><br><span class="line">&#123;</span><br><span class="line">  //this makes our label create a CATextLayer //instead of a regular CALayer for its backing layer</span><br><span class="line">  return [CATextLayer class];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (CATextLayer *)textLayer</span><br><span class="line">&#123;</span><br><span class="line">  return (CATextLayer *)self.layer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)setUp</span><br><span class="line">&#123;</span><br><span class="line">  //set defaults from UILabel settings</span><br><span class="line">  self.text = self.text;</span><br><span class="line">  self.textColor = self.textColor;</span><br><span class="line">  self.font = self.font;</span><br><span class="line"></span><br><span class="line">  //we should really derive these from the UILabel settings too</span><br><span class="line">  //but that's complicated, so for now we'll just hard-code them</span><br><span class="line">  [self textLayer].alignmentMode = kCAAlignmentJustified;</span><br><span class="line">  ￼</span><br><span class="line">  [self textLayer].wrapped = YES;</span><br><span class="line">  [self.layer display];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (id)initWithFrame:(CGRect)frame</span><br><span class="line">&#123;</span><br><span class="line">  //called when creating label programmatically</span><br><span class="line">  if (self = [super initWithFrame:frame]) &#123;</span><br><span class="line">    [self setUp];</span><br><span class="line">  &#125;</span><br><span class="line">  return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)awakeFromNib</span><br><span class="line">&#123;</span><br><span class="line">  //called when creating label using Interface Builder</span><br><span class="line">  [self setUp];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)setText:(NSString *)text</span><br><span class="line">&#123;</span><br><span class="line">  super.text = text;</span><br><span class="line">  //set layer text</span><br><span class="line">  [self textLayer].string = text;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)setTextColor:(UIColor *)textColor</span><br><span class="line">&#123;</span><br><span class="line">  super.textColor = textColor;</span><br><span class="line">  //set layer text color</span><br><span class="line">  [self textLayer].foregroundColor = textColor.CGColor;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)setFont:(UIFont *)font</span><br><span class="line">&#123;</span><br><span class="line">  super.font = font;</span><br><span class="line">  //set layer font</span><br><span class="line">  CFStringRef fontName = (__bridge CFStringRef)font.fontName;</span><br><span class="line">  CGFontRef fontRef = CGFontCreateWithFontName(fontName);</span><br><span class="line">  [self textLayer].font = fontRef;</span><br><span class="line">  [self textLayer].fontSize = font.pointSize;</span><br><span class="line">  ￼</span><br><span class="line">  CGFontRelease(fontRef);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/05/15/记一个用Masonry及AutoLayout布局ScrollView子控件Bug/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          记一个用Masonry及AutoLayout布局ScrollView子控件Bug
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/27/Swift3_0不远了/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Swift3.0不远了</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="CA第六章" data-title="Core Animation 阅读随笔 第六章 - 专用图层" data-url="http://xbcs.github.io/2016/04/28/CA第六章/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Zoe Lee
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

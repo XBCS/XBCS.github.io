@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Core Animation 阅读随笔 第一二章 | 丶信步沧桑</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="16/04/20  第一章1. CALayer与UIView的最大区别就是CALayer不能处理用户交互, 虽然CALayer提供了一些方法来判断触摸点是否在图层的范围内,但是CALayer并不清楚具体的响应链.UIView仅仅是对CALayer的封装并提供了一些处理触摸的具体功能以及Core Animation底层方法的高级接口, 所以在性能上CALayer优于UIView.2. 每个UIVie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Core Animation 阅读随笔 第一二章">
+<meta property="og:url" content="http://xbcs.github.io/2016/04/20/CA第一二章/index.html">
+<meta property="og:site_name" content="丶信步沧桑">
+<meta property="og:description" content="16/04/20  第一章1. CALayer与UIView的最大区别就是CALayer不能处理用户交互, 虽然CALayer提供了一些方法来判断触摸点是否在图层的范围内,但是CALayer并不清楚具体的响应链.UIView仅仅是对CALayer的封装并提供了一些处理触摸的具体功能以及Core Animation底层方法的高级接口, 所以在性能上CALayer优于UIView.2. 每个UIVie">
+<meta property="og:updated_time" content="2016-05-24T02:12:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Core Animation 阅读随笔 第一二章">
+<meta name="twitter:description" content="16/04/20  第一章1. CALayer与UIView的最大区别就是CALayer不能处理用户交互, 虽然CALayer提供了一些方法来判断触摸点是否在图层的范围内,但是CALayer并不清楚具体的响应链.UIView仅仅是对CALayer的封装并提供了一些处理触摸的具体功能以及Core Animation底层方法的高级接口, 所以在性能上CALayer优于UIView.2. 每个UIVie">
+  
+    <link rel="alternative" href="/atom.xml" title="丶信步沧桑" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="null" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Zoe Lee</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">The more you learn, the more you feel you are ignorant.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>Über</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Core-Animation/" style="font-size: 20px;">Core Animation</a> <a href="/tags/FMDB-iOS/" style="font-size: 10px;">FMDB iOS</a> <a href="/tags/OC-知识点-随记/" style="font-size: 10px;">OC 知识点 随记</a> <a href="/tags/React-Native-热更新-iOS/" style="font-size: 15px;">React-Native 热更新 iOS</a> <a href="/tags/objc-OC-Runtime/" style="font-size: 10px;">objc OC Runtime</a> <a href="/tags/吐槽-杂-Bug-ScrollView-Masonry-AutoLayout/" style="font-size: 10px;">吐槽 杂 Bug ScrollView Masonry AutoLayout</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">奥巴马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">卡卡的美丽传说</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">本泽马的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">吉格斯的博客</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">习大大大不同</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">托蒂的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Zoe Lee</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="null" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Zoe Lee</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">The more you learn, the more you feel you are ignorant.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-CA第一二章" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/20/CA第一二章/" class="article-date">
+  	<time datetime="2016-04-20T15:05:19.000Z" itemprop="datePublished">2016-04-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Core Animation 阅读随笔 第一二章
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Core-Animation/">Core Animation</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2>16/04/20  第一章</h2><br>1. <code>CALayer</code>与<code>UIView</code>的最大区别就是<code>CALayer</code>不能处理用户交互, 虽然<code>CALayer</code>提供了一些方法来判断触摸点是否在图层的范围内,但是<code>CALayer</code>并不清楚具体的响应链.<code>UIView</code>仅仅是对<code>CALayer</code>的封装并提供了一些处理触摸的具体功能以及<code>Core Animation</code>底层方法的高级接口, 所以在性能上<code>CALayer</code>优于<code>UIView</code>.<br>2. 每个UIView都有一个CALayer的实例属性(backing layer), 视图的职责就是创建并管理这个图层以确保当子视图在层级关系中添加或被移除时候,他们关联的图层所对应的层级关系树中也同样有相同的操作.<br><br><h2>16/04/20  第二章 CALayer一些属性</h2>
+
+<h4>Contents</h4>
+
+<ol>
+<li><code>CALayer</code>的<code>contents属性</code>之所以为<code>id</code>是Mac OS的历史原因造成的,在Mac OS上<code>contents属性</code>对<code>CGImage</code>和<code>NSImage</code>都做支持,所以用了<code>id</code>.</li>
+<li><code>CALayer</code>的<code>contents属性</code>只能用<code>CGImageRef</code>来赋值. <code>CGImageRef</code>是一个指向<code>CGImage结构体</code>的指针. 可以通过<code>UIImage</code>的<code>CGImage属性</code>来获得<code>CGImageRef</code>(image.CGImage).但是<code>CGImageRef</code>是<code>Core Fundation</code>类型,并不是<code>Cocoa</code>的对象, 所以需要桥接一下<code>(__bridge id _Nullable)(image.CGImage);</code></li>
+</ol>
+<h4>ContentsGravity</h4>
+
+<ol>
+<li>当给<code>contents属性</code>赋图时可能遇到与<code>UIImageView</code>相同的情况:拉伸方式不预期.而<code>UIImageView</code>的解决方法是更改<code>contentMode属性</code>,如:<code>imageView.contentMode = UIViewContentModeScaleAspectFit;``UIView</code>的分类中<code>UIView(UIViewRendering)</code>也有<code>contentMode</code>属性. 重点来了,事实上<code>UIView</code>对大多数<code>视觉属性</code>的操作,是对CALayer的操作.如<code>contentMode</code>,<code>frame</code>等. 而CALayer中与<code>contentMode</code>对应的属性是<code>contentsGravity</code>.相关常量值在头文件781-806行.<code>self.view.layer.contentsGravity = kCAGravityResizeAspect;</code>等效于<code>imageView.contentMode = UIViewContentModeScaleAspectFit;</code></li>
+</ol>
+<h4>contentsScale</h4>
+
+<ol>
+<li><code>CALayer</code>中的<code>contentsScale属性</code>的定义:像素尺寸和视图大小的比例,默认值为1.0;如果设置为1.0则表示将会以每个点一个像素绘制图片,如果设置为2.0,那么以每个点两个像素绘制图片.当设置了contentsGravity时,会优先采纳contensGravity.</li>
+</ol>
+<h4>maskToBounds</h4>
+
+<ol>
+<li><code>CALayer</code>与<code>UIView</code>一致,默认情况下会显示超出边界的内容.即maskToBounds属性默认为NO, 设置成YES可不显示超出部分, <code>UIView</code>对应的是clipsToBounds;</li>
+</ol>
+<p></p><h4>contentsRect</h4><p></p>
+<ol>
+<li>默认的contentsRect是 {0, 0, 1, 1}. 如果指定一个小一些的矩形范围,图片将会被裁剪.</li>
+</ol>
+<h3>Custom drawing</h3>
+
+<ol>
+<li>给layer设置图形还可以通过drawRect方法自定义绘制,<code>drawRect</code>方法没有默认实现, 苹果建议;如果没有自定义绘制任务的需求,不要在创建一个空的<code>drawRect</code>方法,会造成CPU资源和内存资源的浪费.</li>
+<li><code>CALayer</code>有一个<code>delegate</code>属性,实现了<code>CALayerDelegate</code>协议.协议中所有方法都是可选的. 当需要重绘时,<code>CALayer</code>会请求它的代理给他一个图片来显示,会调用<code>- (void)displayLayer:(CALayer *)layer;</code> 如果代理没有实现<code>- (void)displayLayer:</code>这个方法, 就会调用<code>- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx</code>; 在调用此方法前,CALayer创建了一个合适尺寸的空的寄宿图(尺寸由bounds和contentsScale决定)和一个Core Graphics的图形上下文,为绘制寄宿图做准备.</li>
+<li>使用CALayerDelegate绘制图形时,不对超出边界外的内容提供绘制支持.</li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/21/CA第三章/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Core Animation 阅读随笔 第三章
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/18/学会React-Native布局一/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">React-Native布局实战(一)</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="CA第一二章" data-title="Core Animation 阅读随笔 第一二章" data-url="http://xbcs.github.io/2016/04/20/CA第一二章/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Zoe Lee
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
